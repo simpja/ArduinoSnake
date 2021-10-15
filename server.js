@@ -7,7 +7,8 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 // Johnny-Five stuff
 const { Board } = require("johnny-five");
-const oneButtonFunctions = require('./ArduinoScripts/OneButton');
+// const oneButtonFunctions = require('./ArduinoScripts/OneButton');
+const twoButtonFunctions = require('./ArduinoScripts/TwoButtons');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -26,7 +27,8 @@ Some explanation for the use of function.bind()
     To solve this we're using function.bind() in order to pass io as an argument to the boardRunFunction without executing it when attaching it to the board.on event
     function.bind() takes as a first argument an object which to point to as 'this', and the scond argument is an array of any input parameters - in our case the io object
 */
-const boardRunFunctionBound = oneButtonFunctions.boardRunFunction.bind(null, io);
+// const boardRunFunctionBound = oneButtonFunctions.boardRunFunction.bind(null, io);
+const boardRunFunctionBound = twoButtonFunctions.boardRunFunction.bind(null, io);
 board.on("ready", boardRunFunctionBound);
 
 server.listen(8080, () => {

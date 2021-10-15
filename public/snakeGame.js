@@ -118,6 +118,23 @@ function create ()
             }
         },
 
+        turnRight: function ()
+        {
+            if (this.direction === UP)
+            {
+                this.heading = RIGHT;
+            } else if (this.direction === RIGHT)
+            {
+                this.heading = DOWN;
+            } else if (this.direction === DOWN)
+            {
+                this.heading = LEFT;
+            } else if (this.direction === LEFT)
+            {
+                this.heading = UP;
+            }
+        },
+
         faceRight: function ()
         {
             if (this.direction === UP || this.direction === DOWN)
@@ -255,6 +272,11 @@ function create ()
 socket.on("turn-left", (message) => {
     console.log('turning left, socket message:', message);
     snake.turnLeft();
+});
+
+socket.on("turn-right", (message) => {
+    console.log('turning right, socket message:', message);
+    snake.turnRight();
 });
 
 function update (time, delta)
